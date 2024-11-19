@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.ecom.model.cart.UpdatedCartDetails;
 import org.ecom.model.coupon.ApplyCouponRequest;
+import org.ecom.model.coupon.CouponRequest;
 import org.ecom.server.entity.Coupon;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,9 +17,9 @@ public interface CouponService {
 
    UpdatedCartDetails applyCoupon(long couponId, ApplyCouponRequest applyCouponRequest);
 
-   List<Coupon> getCoupons();
+   List<CouponRequest> getCoupons();
 
-   Coupon getCoupon(Long id);
+   CouponRequest getCoupon(Long id);
 
    void deleteCoupon(Long id);
 

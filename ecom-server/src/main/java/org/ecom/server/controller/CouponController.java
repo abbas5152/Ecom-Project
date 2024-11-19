@@ -53,13 +53,13 @@ public class CouponController {
 
    @GetMapping(produces = APPLICATION_JSON_VALUE)
    @ResponseStatus(HttpStatus.OK)
-   public List<org.ecom.server.entity.Coupon> getCoupons() {
+   public List<CouponRequest> getCoupons() {
       return couponService.getCoupons();
    }
 
    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
    @ResponseStatus(HttpStatus.OK)
-   public org.ecom.server.entity.Coupon getCoupon(@PathVariable Long id) {
+   public CouponRequest getCoupon(@PathVariable Long id) {
       return couponService.getCoupon(id);
    }
 

@@ -9,11 +9,15 @@ import org.ecom.model.enums.CouponType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonInclude;;
 
 @Getter
 @Setter
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CouponRequest {
+
+   private Long id;
 
    @NotNull(message = "Type is mandatory")
    private CouponType type;
