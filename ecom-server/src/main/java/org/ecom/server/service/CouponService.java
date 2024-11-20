@@ -6,22 +6,21 @@ import org.ecom.model.cart.CartDetails;
 import org.ecom.model.cart.UpdatedCartDetails;
 import org.ecom.model.coupon.ApplicableCouponResponse;
 import org.ecom.model.coupon.ApplyCouponRequest;
-import org.ecom.model.coupon.CouponRequest;
+import org.ecom.model.coupon.CouponDTO;
+import org.ecom.model.coupon.Coupons;
 import org.ecom.server.entity.Coupon;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface CouponService {
 
-   Coupon createCoupon(org.ecom.model.coupon.CouponRequest coupon) throws JsonProcessingException;
+   Coupon createCoupon(CouponDTO coupon);
 
-   Coupon updateCoupon(org.ecom.model.coupon.CouponRequest coupon);
+   Coupon updateCoupon(CouponDTO coupon);
 
    UpdatedCartDetails applyCoupon(long couponId, ApplyCouponRequest applyCouponRequest);
 
-   List<CouponRequest> getCoupons();
+   Coupons getCoupons();
 
-   CouponRequest getCoupon(Long id);
+   CouponDTO getCoupon(Long id);
 
    void deleteCoupon(Long id);
 

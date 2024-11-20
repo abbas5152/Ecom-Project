@@ -1,7 +1,6 @@
 package org.ecom.model.coupon;
 
 import java.util.Date;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.ecom.model.enums.CouponType;
@@ -15,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;;
 @Setter
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CouponRequest {
+public class CouponDTO {
 
    private Long id;
 
