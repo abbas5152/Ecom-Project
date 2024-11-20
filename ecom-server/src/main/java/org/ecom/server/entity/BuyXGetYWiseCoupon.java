@@ -36,7 +36,7 @@ public class BuyXGetYWiseCoupon extends Coupon {
          joinColumns = @JoinColumn(name = "id"), // Foreign key to BuyXGetYWiseCoupon
          inverseJoinColumns = @JoinColumn(name = "product_id") // Foreign key to TransactionProduct
    )
-   private List<TransactionProduct> getProducts;
+   private Set<TransactionProduct> getProducts;
 
    private int repetitionLimit;
 }

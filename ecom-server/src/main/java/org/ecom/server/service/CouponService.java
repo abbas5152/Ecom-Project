@@ -2,7 +2,9 @@ package org.ecom.server.service;
 
 import java.util.List;
 
+import org.ecom.model.cart.CartDetails;
 import org.ecom.model.cart.UpdatedCartDetails;
+import org.ecom.model.coupon.ApplicableCouponResponse;
 import org.ecom.model.coupon.ApplyCouponRequest;
 import org.ecom.model.coupon.CouponRequest;
 import org.ecom.server.entity.Coupon;
@@ -13,7 +15,7 @@ public interface CouponService {
 
    Coupon createCoupon(org.ecom.model.coupon.CouponRequest coupon) throws JsonProcessingException;
 
-   Coupon updateCoupon(org.ecom.model.coupon.CouponRequest coupon) throws JsonProcessingException;
+   Coupon updateCoupon(org.ecom.model.coupon.CouponRequest coupon);
 
    UpdatedCartDetails applyCoupon(long couponId, ApplyCouponRequest applyCouponRequest);
 
@@ -22,5 +24,7 @@ public interface CouponService {
    CouponRequest getCoupon(Long id);
 
    void deleteCoupon(Long id);
+
+   List<ApplicableCouponResponse> applyCoupons(CartDetails cartDetails);
 
 }

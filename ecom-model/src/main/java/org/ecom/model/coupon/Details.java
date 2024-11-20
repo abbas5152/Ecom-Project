@@ -30,6 +30,5 @@ public class Details {
 
    private int repetitionLimit;
 
-
    private double threshold;
 }

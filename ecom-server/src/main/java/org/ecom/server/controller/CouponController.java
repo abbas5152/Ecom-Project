@@ -5,7 +5,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import java.util.List;
 import javax.validation.Valid;
 
+import org.ecom.model.cart.CartDetails;
 import org.ecom.model.cart.UpdatedCartDetails;
+import org.ecom.model.coupon.ApplicableCouponResponse;
 import org.ecom.model.coupon.ApplyCouponRequest;
 import org.ecom.model.coupon.CouponRequest;
 import org.ecom.model.product.ProductWiseDetails;
@@ -47,7 +49,7 @@ public class CouponController {
 
    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
    @ResponseStatus(HttpStatus.CREATED)
-   public org.ecom.server.entity.Coupon updateCoupon(@Valid @RequestBody CouponRequest coupon) throws JsonProcessingException {
+   public org.ecom.server.entity.Coupon updateCoupon(@Valid @RequestBody CouponRequest coupon)  {
       return couponService.updateCoupon(coupon);
    }
 
@@ -67,6 +69,14 @@ public class CouponController {
    @ResponseStatus(HttpStatus.OK)
    public void deleteCoupon(@PathVariable Long id) {
       couponService.deleteCoupon(id);
+   }
+
+   @PostMapping(value = "/apply-coupon" ,consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+   @ResponseStatus(HttpStatus.OK)
+   public List<ApplicableCouponResponse> applyCoupons(@RequestBody ApplyCouponRequest cart) {
+      //System.out.println(cart.getItems());
+
+      return couponService.applyCoupons(cart.getCart());
    }
 }
 
