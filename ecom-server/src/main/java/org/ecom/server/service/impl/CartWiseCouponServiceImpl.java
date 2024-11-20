@@ -23,6 +23,7 @@ public class CartWiseCouponServiceImpl implements CartWiseCouponService {
       cartWiseCoupon.setCouponType(CouponType.CART_WISE);
       cartWiseCoupon.setDiscount(couponDTO.getDetails().getDiscount());
       cartWiseCoupon.setThreshold(couponDTO.getDetails().getThreshold());
+      cartWiseCoupon.setEndDate(couponDTO.getEndDate());
       return cartWiseCoupon;
    }
 

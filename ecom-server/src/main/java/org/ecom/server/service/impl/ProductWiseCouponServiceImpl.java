@@ -24,6 +24,7 @@ public class ProductWiseCouponServiceImpl implements ProductWiseCouponService {
       productWiseCoupon.setCouponType(CouponType.PRODUCT_WISE);
       productWiseCoupon.setDiscount(couponDTO.getDetails().getDiscount());
       productWiseCoupon.setProductId(couponDTO.getDetails().getProductId());
+      productWiseCoupon.setEndDate(couponDTO.getEndDate());
       return productWiseCoupon;
    }
 

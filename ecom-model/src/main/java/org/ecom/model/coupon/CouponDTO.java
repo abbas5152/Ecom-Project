@@ -24,6 +24,8 @@ public class CouponDTO {
    @NotNull(message = "details are mandatory")
    private Details details;
 
+   private Date endDate;
+
    private String createdBy;
 
    private Date createdOn;

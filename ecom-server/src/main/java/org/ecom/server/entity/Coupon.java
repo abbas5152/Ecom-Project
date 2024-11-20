@@ -37,8 +37,8 @@ public class Coupon {
    @Enumerated(value = EnumType.STRING)
    private CouponType couponType;
 
-   @Column(nullable = false)
-   private boolean isActive;
+   @Column(name = "end_date")
+   private Date endDate;
 
    @Column(name = "created_by", updatable = false)
    private String createdBy;

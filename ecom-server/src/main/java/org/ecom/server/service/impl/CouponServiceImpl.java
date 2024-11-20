@@ -197,7 +197,7 @@ public class CouponServiceImpl implements CouponService {
       couponDTO.setCreatedOn(coupon.getCreatedOn());
       couponDTO.setLastModifiedBy(coupon.getLastModifiedBy());
       couponDTO.setType(coupon.getCouponType());
-
+      couponDTO.setEndDate(coupon.getEndDate());
       Details details = fetchCouponDetailsByType(coupon);
       couponDTO.setDetails(details);
 

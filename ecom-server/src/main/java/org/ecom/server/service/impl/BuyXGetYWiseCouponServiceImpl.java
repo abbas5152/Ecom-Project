@@ -38,6 +38,7 @@ public class BuyXGetYWiseCouponServiceImpl implements BuyXGetYWiseCouponService 
       buyXGetYWiseCoupon.setGetProducts(getProducts);
 
       buyXGetYWiseCoupon.setRepetitionLimit(couponDTO.getDetails().getRepetitionLimit());
+      buyXGetYWiseCoupon.setEndDate(couponDTO.getEndDate());
       return buyXGetYWiseCoupon;
    }
 
