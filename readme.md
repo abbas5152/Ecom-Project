@@ -210,7 +210,7 @@ supports the creation, retrieval, apply coupon, and manage expiry of coupons.
 6. **Shipping-Free Coupons**
   - Introduce coupons that offer free shipping benefits.
 
----
+-------
+## **Explanation Video of This Project**
 
-## Explanation video of this project
-- 
+- [**Video Explanation**](https://drive.google.com/file/d/1HuyxD_TV3RRfCa4XEYciKy3VfAfoh_YA/view?usp=sharing)
