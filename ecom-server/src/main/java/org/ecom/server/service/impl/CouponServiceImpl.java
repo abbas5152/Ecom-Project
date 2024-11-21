@@ -3,9 +3,11 @@ package org.ecom.server.service.impl;
 import static org.ecom.model.common.ErrorCodes.COUPON_NOT_CREATED;
 import static org.ecom.model.common.ErrorCodes.COUPON_NOT_DELETED;
 import static org.ecom.model.common.ErrorCodes.COUPON_NOT_EXISTS;
+import static org.ecom.model.common.ErrorCodes.COUPON_NOT_UPDATED;
 import static org.ecom.model.common.ErrorCodes.INVALID_COUPON_TYPE;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,7 +58,7 @@ public class CouponServiceImpl implements CouponService {
          case CART_WISE:
             coupon = cartWiseCouponService.createCartWiseCoupon(couponDTO);
             break;
-          case PRODUCT_WISE:
+         case PRODUCT_WISE:
             coupon = productWiseCouponService.createProductWiseCoupon(couponDTO);
             break;
          case BXGY_WISE:
@@ -73,13 +75,23 @@ public class CouponServiceImpl implements CouponService {
    }
 
    @Override
-   public Coupon updateCoupon(CouponDTO coupon){
-      return null;
+   public Coupon updateCoupon(long id, Date endDate) {
+      Optional<Coupon> couponEntity = couponRepository.findByIdAndIsDeleted(id, false);
+      if (couponEntity.isEmpty()) {
+         throw new ResourceNotFoundException(COUPON_NOT_EXISTS, "Coupon not exists", String.valueOf(id));
+      }
+      try {
+         Coupon updatedCoupon = couponEntity.get();
+         updatedCoupon.setEndDate(endDate);
+         return couponRepository.save(updatedCoupon);
+      } catch (Exception ex) {
+         log.error("Not able to update coupon :{}", ex.getMessage());
+         throw new UnknownException(COUPON_NOT_UPDATED, "Coupon not updated", String.valueOf(id));
+      }
    }
 
    @Override
    public UpdatedCartDetails applyCoupon(long couponId, ApplyCouponRequest applyCouponRequest) {
-      // Fetch coupon details by ID
       CouponDTO coupon = getCoupon(couponId);
       CartDetails cart = applyCouponRequest.getCart();
       double totalCartValue = cartWiseCouponService.calculateTotalCartValue(cart);
@@ -89,7 +101,7 @@ public class CouponServiceImpl implements CouponService {
       updatedCartDetails.setTotalPrice((int) totalCartValue);
       double totalDiscount = 0;
 
-      // Apply coupon based on its type
+      // Apply coupon based on coupon type
       switch (coupon.getType()) {
       case CART_WISE:
          totalDiscount = cartWiseCouponService.applyCartWiseCoupon(coupon, totalCartValue, updatedCartDetails);
@@ -110,17 +122,16 @@ public class CouponServiceImpl implements CouponService {
 
    @Override
    public List<ApplicableCouponResponse> applyCoupons(CartDetails cart) {
-      // Fetch active coupons
       List<CouponDTO> activeCoupons = getCoupons().getCoupons();
       double cartTotal = cartWiseCouponService.calculateTotalCartValue(cart);
       List<ApplicableCouponResponse> applicableCoupons = new ArrayList<>();
 
       for (CouponDTO coupon : activeCoupons) {
          double discount = 0;
-
+         // Apply coupon based on coupon type
          switch (coupon.getType()) {
          case CART_WISE:
-            discount = cartWiseCouponService.applyCartWiseCoupon(coupon, cartTotal,null);
+            discount = cartWiseCouponService.applyCartWiseCoupon(coupon, cartTotal, null);
             break;
          case BXGY_WISE:
             discount = buyXGetYWiseCouponService.applyBxGyWiseCoupon(coupon, cart, null);
@@ -153,7 +164,7 @@ public class CouponServiceImpl implements CouponService {
       int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
 
       PageInfo pageInfo = new PageInfo();
-      pageInfo.setPageNumber(0); // Default to the first page
+      pageInfo.setPageNumber(0);
       pageInfo.setPageSize(pageSize);
       pageInfo.setTotalPages(totalPages);
 
@@ -176,7 +187,7 @@ public class CouponServiceImpl implements CouponService {
    @Override
    public void deleteCoupon(Long id) {
       Optional<Coupon> coupon = couponRepository.findByIdAndIsDeleted(id, false);
-      if(coupon.isEmpty()) {
+      if (coupon.isEmpty()) {
          throw new ResourceNotFoundException(COUPON_NOT_EXISTS, "Coupon not exists", id.toString());
       }
       try {
@@ -207,9 +218,10 @@ public class CouponServiceImpl implements CouponService {
    private Details fetchCouponDetailsByType(Coupon coupon) {
       Details details = new Details();
 
+      // Apply coupon based on coupon type
       switch (coupon.getCouponType()) {
       case CART_WISE:
-          details = cartWiseCouponService.getCartWiseCouponDetails(coupon.getId(), details);
+         details = cartWiseCouponService.getCartWiseCouponDetails(coupon.getId(), details);
          break;
 
       case PRODUCT_WISE:
@@ -225,5 +237,4 @@ public class CouponServiceImpl implements CouponService {
       }
       return details;
    }
-
 }

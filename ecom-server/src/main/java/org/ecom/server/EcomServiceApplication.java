@@ -9,5 +9,5 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class EcomServiceApplication {
    public static void main(String[] args) {
       SpringApplication.run(EcomServiceApplication.class, args);
-      }
    }
+}

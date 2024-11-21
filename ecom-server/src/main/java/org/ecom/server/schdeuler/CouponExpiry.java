@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Validate whether coupon is expired or not in every 5 mins
+ */
 @Slf4j
 @Component
 public class CouponExpiry {

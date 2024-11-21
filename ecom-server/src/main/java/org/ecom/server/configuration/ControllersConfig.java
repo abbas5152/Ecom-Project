@@ -8,6 +8,9 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 @Configuration
 public class ControllersConfig {
 
+   /**
+      Creating this bean to send appropriate message while exception handling
+    */
    @Bean
    public MessageSource messageSource() {
       ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();

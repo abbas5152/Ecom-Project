@@ -1,5 +1,6 @@
 package org.ecom.server.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.ecom.model.cart.CartDetails;
@@ -20,11 +21,12 @@ public interface CouponService {
    Coupon createCoupon(CouponDTO coupon);
 
    /**
-    * updates coupon
-    * @param coupon Request which contains details related to coupon
+    * updates coupon ending time
+    * @param id coupon id
+    * @param endDate endDate which needs to be updated
     * @return Coupon Entity Object related details
     */
-   Coupon updateCoupon(CouponDTO coupon);
+   Coupon updateCoupon(long id, Date endDate);
 
    /**
     * Apply particular coupon

@@ -2,7 +2,6 @@ package org.ecom.server.repository;
 
 import java.util.Optional;
 
-import org.ecom.server.entity.CartWiseCoupon;
 import org.ecom.server.entity.ProductWiseCoupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,10 +11,5 @@ public interface ProductWiseCouponRepository extends JpaRepository<ProductWiseCo
 
    Optional<ProductWiseCoupon> findByIdAndIsDeleted(Long id, boolean isDeleted);
 
-//   List<Coupon> findByIsDeletedFalse();
-//
-//   List<Coupon> findByTypeAndIsDeletedFalse(String type);
-//
-//   //List<Coupon> findByIsDeletedFalseAndExpirationDateAfter(LocalDateTime date);
 }
 

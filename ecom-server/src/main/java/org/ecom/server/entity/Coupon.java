@@ -1,7 +1,6 @@
 package org.ecom.server.entity;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.TimeZone;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +13,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.ecom.model.enums.CouponType;
 import org.hibernate.annotations.DynamicUpdate;
 

@@ -1,16 +1,13 @@
 package org.ecom.server.controller;
 
 import java.util.Locale;
-import java.util.Objects;
 
-import org.ecom.server.exception.ConflictException;
 import org.ecom.server.exception.InvalidRequestException;
 import org.ecom.server.exception.ResourceNotFoundException;
 import org.ecom.server.exception.UnknownException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,34 +34,6 @@ public class ExceptionHandlerController {
    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
    public ErrorMessage invalidRequestException(InvalidRequestException ex, Locale locale) {
       return new ErrorMessage(400, ex.getErrorCode().getApiErrorCode(),
-            messageSource.getMessage(ex.getErrorCode().getErrorCode(), ex.getArguments(), locale));
-   }
-
-   /**
-    * This exception is raised while validating the input request runs into an error
-    *
-    * @param e MethodArgumentNotValidException
-    * @return The ErrorMessage response object
-    */
-   @ExceptionHandler(value = { MethodArgumentNotValidException.class})
-   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-   public ErrorMessage customValidationExceptionHandler(MethodArgumentNotValidException e) {
-      return new ErrorMessage(400, 0, Objects.requireNonNull(
-            e.getBindingResult().getFieldError()).getDefaultMessage() == null ?
-            "" : e.getBindingResult().getFieldError().getDefaultMessage());
-   }
-
-   /**
-    * This exception is raised when a resource is already exists.
-    *
-    * @param ex ConflictException
-    * @param locale Locale used to resolve the error code to the appropriate error message
-    * @return The ErrorMessage response object
-    */
-   @ExceptionHandler(value = { ConflictException.class})
-   @ResponseStatus(value = HttpStatus.CONFLICT)
-   public ErrorMessage conflictException(ConflictException ex, Locale locale) {
-      return new ErrorMessage(409, ex.getErrorCode().getApiErrorCode(),
             messageSource.getMessage(ex.getErrorCode().getErrorCode(), ex.getArguments(), locale));
    }
 

@@ -2,6 +2,7 @@ package org.ecom.server.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 
@@ -10,6 +11,7 @@ import org.ecom.model.coupon.ApplicableCouponResponse;
 import org.ecom.model.coupon.ApplyCouponRequest;
 import org.ecom.model.coupon.CouponDTO;
 import org.ecom.model.coupon.Coupons;
+import org.ecom.server.entity.Coupon;
 import org.ecom.server.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,33 +29,33 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/coupon")
+@RequestMapping("/api/coupons")
 public class CouponController {
    @Autowired
    private CouponService couponService;
 
    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
    @ResponseStatus(HttpStatus.CREATED)
-   public org.ecom.server.entity.Coupon createCoupon(@Valid @RequestBody CouponDTO coupon) {
+   public Coupon createCoupon(@Valid @RequestBody CouponDTO coupon) {
       return couponService.createCoupon(coupon);
    }
 
    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
    @ResponseStatus(HttpStatus.CREATED)
-   public org.ecom.server.entity.Coupon updateCoupon(@Valid @RequestBody CouponDTO coupon)  {
-      return couponService.updateCoupon(coupon);
+   public Coupon updateCoupon(@PathVariable long id, @Valid @RequestBody Date endDate)  {
+      return couponService.updateCoupon(id, endDate);
    }
 
-   @PostMapping(value = "/apply-coupon", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+   @PostMapping(value = "/apply-coupons", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
    @ResponseStatus(HttpStatus.OK)
    public List<ApplicableCouponResponse> applyCoupons(@Valid @RequestBody ApplyCouponRequest cart) {
       return couponService.applyCoupons(cart.getCart());
    }
 
-   @PostMapping(value = "/apply-coupon/{id}",consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+   @PostMapping(value = "/apply-coupons/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
    @ResponseStatus(HttpStatus.OK)
    public UpdatedCartDetails applyCoupon(@PathVariable long id,
-         @RequestBody @Valid ApplyCouponRequest applyCouponRequest){
+         @RequestBody @Valid ApplyCouponRequest applyCouponRequest) {
       return couponService.applyCoupon(id, applyCouponRequest);
    }
 

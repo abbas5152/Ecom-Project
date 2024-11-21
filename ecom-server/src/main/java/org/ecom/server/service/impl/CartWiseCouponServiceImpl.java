@@ -40,26 +40,24 @@ public class CartWiseCouponServiceImpl implements CartWiseCouponService {
       double discountPercentage = coupon.getDetails().getDiscount();
       double threshold = coupon.getDetails().getThreshold();
 
-      // Check if the total cart value meets the threshold
       if (totalCartValue >= threshold) {
          double finalDiscount = totalCartValue * discountPercentage / 100;
 
-         // Update the UpdatedCartDetails if provided
          if (updatedCartDetails != null) {
             updatedCartDetails.setTotalDiscount((int) finalDiscount);
             updatedCartDetails.setFinalPrice((int) (totalCartValue - finalDiscount));
          }
-
          return finalDiscount;
       }
-      return 0; // No discount if the cart value is below the threshold
+      return 0;
    }
 
    @Override
    public Details getCartWiseCouponDetails(Long couponId, Details details) {
-      CartWiseCoupon cartWiseCoupon = cartWiseCouponRepository.findByIdAndIsDeleted(couponId, false).orElse(null);
-         details.setDiscount(cartWiseCoupon.getDiscount());
-         details.setThreshold(cartWiseCoupon.getThreshold());
-         return details;
+      CartWiseCoupon cartWiseCoupon = cartWiseCouponRepository
+            .findByIdAndIsDeleted(couponId, false).orElse(null);
+      details.setDiscount(cartWiseCoupon.getDiscount());
+      details.setThreshold(cartWiseCoupon.getThreshold());
+      return details;
    }
 }

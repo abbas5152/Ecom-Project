@@ -41,9 +41,10 @@ public class ProductWiseCouponServiceImpl implements ProductWiseCouponService {
 
    @Override
    public Details getProductWiseCouponDetails(Long couponId, Details details) {
-      ProductWiseCoupon productWiseCoupon = productWiseCouponRepository.findByIdAndIsDeleted(couponId, false).orElse(null);
-         details.setDiscount(productWiseCoupon.getDiscount());
-         details.setProductId(productWiseCoupon.getProductId());
+      ProductWiseCoupon productWiseCoupon = productWiseCouponRepository
+            .findByIdAndIsDeleted(couponId, false).orElse(null);
+      details.setDiscount(productWiseCoupon.getDiscount());
+      details.setProductId(productWiseCoupon.getProductId());
       return details;
    }
 
@@ -51,12 +52,10 @@ public class ProductWiseCouponServiceImpl implements ProductWiseCouponService {
       double discountPercentage = coupon.getDetails().getDiscount();
       double totalDiscount = 0;
 
-      // Iterate through cart items to calculate the discount
       for (ProductWiseDetails cartItem : cart.getItems()) {
          if (cartItem.getProductId() == coupon.getDetails().getProductId()) {
             double discount = (cartItem.getPrice() * cartItem.getQuantity() * discountPercentage / 100);
 
-            // Update the item's specific discount
             cartItem.setTotalDiscount(cartItem.getTotalDiscount() + (int) discount);
 
             totalDiscount += discount;
