@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.ecom.model.common.PageInfo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+/**
+ * Paginated response of list of coupons
+ */
+@Getter
+@Setter
 public class Coupons {
 
    private List<CouponDTO> coupons = new ArrayList<>();

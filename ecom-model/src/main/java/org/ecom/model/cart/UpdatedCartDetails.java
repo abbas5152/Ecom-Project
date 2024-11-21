@@ -6,6 +6,9 @@ import org.ecom.model.product.ProductWiseDetails;
 
 import lombok.Data;
 
+/**
+ * Contains details of cart after applying the particular coupon
+ */
 @Data
 public class UpdatedCartDetails {
    private List<ProductWiseDetails> items;

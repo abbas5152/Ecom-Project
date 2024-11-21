@@ -1,20 +1,18 @@
 package org.ecom.model.coupon;
 
 import java.util.List;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.ecom.model.product.Products;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+/**
+ * Contains information of all types of coupons
+ */
 @Getter
 @Setter
-@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Details {
 
@@ -22,9 +20,7 @@ public class Details {
 
    private double discount;
 
-
    private List<Products> buyProducts;
-
 
    private List<Products> getProducts;
 

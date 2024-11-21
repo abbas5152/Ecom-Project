@@ -6,10 +6,17 @@ import javax.validation.constraints.NotNull;
 
 import org.ecom.model.product.ProductWiseDetails;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+/**
+ * Contains details of cart
+ */
+
+@Getter
+@Setter
 public class CartDetails {
+
    @NotNull
    private List<ProductWiseDetails> items;
 }

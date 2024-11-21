@@ -7,12 +7,14 @@ import org.ecom.model.enums.CouponType;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import com.fasterxml.jackson.annotation.JsonInclude;;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+/**
+ * Contains Details of coupon
+ */
 @Getter
 @Setter
-@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CouponDTO {
 
